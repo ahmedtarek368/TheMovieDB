@@ -10,3 +10,4 @@ import Foundation
 enum ErrorMessage: String{
     case genericError = "Error reading fetched data"
 }
+

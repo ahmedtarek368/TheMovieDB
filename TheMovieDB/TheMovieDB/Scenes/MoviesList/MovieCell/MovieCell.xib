@@ -41,11 +41,21 @@
                             <constraint firstItem="RO4-NI-spe" firstAttribute="top" secondItem="yNA-rF-FTe" secondAttribute="top" constant="2" id="uwq-FV-SKB"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Va-Jf-wfv">
+                        <rect key="frame" x="144" y="12" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="QMX-X4-MUv"/>
+                            <constraint firstAttribute="height" constant="24" id="Z9Z-7Y-eEy"/>
+                        </constraints>
+                        <state key="normal" image="favoriteBorder"/>
+                    </button>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="yNA-rF-FTe" secondAttribute="bottom" id="5Gf-3K-FFw"/>
                 <constraint firstItem="uDC-71-FJg" firstAttribute="centerX" secondItem="bEW-DC-dlL" secondAttribute="centerX" id="AYG-Dq-4mr"/>
+                <constraint firstAttribute="trailing" secondItem="7Va-Jf-wfv" secondAttribute="trailing" constant="12" id="D9n-ei-FP3"/>
+                <constraint firstItem="7Va-Jf-wfv" firstAttribute="top" secondItem="bEW-DC-dlL" secondAttribute="top" constant="12" id="Eox-Uf-fOs"/>
                 <constraint firstAttribute="bottom" secondItem="orD-f5-Mrg" secondAttribute="bottom" id="Idv-Cl-qd1"/>
                 <constraint firstAttribute="trailing" secondItem="orD-f5-Mrg" secondAttribute="trailing" id="Jyr-1k-dRc"/>
                 <constraint firstItem="yNA-rF-FTe" firstAttribute="leading" secondItem="bEW-DC-dlL" secondAttribute="leading" id="KB4-ly-8ZO"/>
@@ -63,4 +73,7 @@
             <point key="canvasLocation" x="95.652173913043484" y="108.48214285714285"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="favoriteBorder" width="24" height="24"/>
+    </resources>
 </document>

@@ -10,4 +10,11 @@ target 'TheMovieDB' do
     pod 'SDWebImage'
     pod 'RxSwift'
     pod 'RxCocoa'
+    
+      target 'TheMovieDBTests' do
+    inherit! :search_paths
+    # Pods for testing
+    pod 'RxSwift'
+    pod 'RxCocoa'
+  end
 end

@@ -22,7 +22,7 @@ class APIClient<T: TargetType> {
                     observer.onNext(.success(data))
                 }else{
                     let statusCode = response.response?.statusCode
-                    let error = NSError(domain: target.baseURL, code: statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: response.error?.localizedDescription ?? ErrorMessage.genericError])
+                    let error = NSError(domain: target.baseURL, code: statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: response.error?.localizedDescription ?? ErrorMessage.genericError.rawValue])
                     observer.onNext(.failure(error))
                 }
             }

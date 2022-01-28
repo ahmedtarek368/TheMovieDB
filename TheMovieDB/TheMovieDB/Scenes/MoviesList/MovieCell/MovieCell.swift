@@ -13,10 +13,18 @@ class MovieCell: UICollectionViewCell {
     @IBOutlet private weak var movieName: UILabel!
     @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
     
+    private var gradientLayer: CAGradientLayer!
+    
+    override func layoutSubviews() {
+        if gradientLayer != nil{
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height/2)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        gradientLayer = CAGradientLayer()
+        addGradientLayer()
     }
     
     func setData(poster: String?, name: String){
@@ -35,6 +43,12 @@ class MovieCell: UICollectionViewCell {
             self.loadingIndicator.isHidden = true
             self.moviePoster.image = UIImage(named: "placeholder")
         }
+    }
+    
+    private func addGradientLayer(){
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height/4)
+        gradientLayer.colors = [UIColor.black.cgColor.copy(alpha: 0.5)!, UIColor.black.cgColor.copy(alpha: 0)!]
+        moviePoster.layer.insertSublayer(gradientLayer, at: 0)
     }
 
 

@@ -11,10 +11,10 @@ import RxCocoa
 
 class MoviesListViewModel: AlertObservable{
     
-    private let moviesServices: MoviesServices!
+    private let moviesServices: MoviesServicesProtocol!
     private let disposeBag: DisposeBag!
     
-    init(moviesServices: MoviesServices = MoviesServices(), disposeBag: DisposeBag){
+    init(moviesServices: MoviesServicesProtocol = MoviesServices(), disposeBag: DisposeBag){
         self.moviesServices = moviesServices
         self.disposeBag = disposeBag
     }
@@ -40,8 +40,10 @@ class MoviesListViewModel: AlertObservable{
     }
     
     func getLatestMovies(by page: Int = 1){
+        LoadingManager.shared.showProgressView()
         moviesServices.getLatestMovies(page: page).subscribe(onNext: {[weak self] (result) in
             guard let self = self else {return}
+            LoadingManager.shared.hideProgressView()
             switch result{
             case .success(let response):
                 if page == 1{

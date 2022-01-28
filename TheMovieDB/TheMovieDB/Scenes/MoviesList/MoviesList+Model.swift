@@ -18,6 +18,14 @@ struct MoviesResponse: Codable {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func DefaultResponse() -> MoviesResponse{
+            return MoviesResponse(page: -1, results: [Movie.factory.DefaultMovie()], totalPages: -1, totalResults: -1)
+        }
+    }
 }
 
 // MARK: - Result
@@ -29,7 +37,8 @@ struct Movie: Codable {
     let originalLanguage: String
     let originalTitle, overview: String
     let popularity: Double
-    let posterPath, releaseDate, title: String
+    let posterPath: String?
+    let releaseDate, title: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
@@ -47,6 +56,15 @@ struct Movie: Codable {
         case title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+    }
+    
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func DefaultMovie() -> Movie{
+            return Movie(adult: false, backdropPath: nil, genreIDS: [], id: -1, originalLanguage: "", originalTitle: "", overview: "", popularity: 0, posterPath: nil, releaseDate: "", title: "", video: false, voteAverage: -1, voteCount: -1)
+        }
     }
 }
 

@@ -36,11 +36,12 @@ class MoviesListVC: UIViewController {
     }
     
     private func resizeCells(){
-        let newWidth = (moviesCV.bounds.width-2)/2
         if UIDevice().userInterfaceIdiom == .phone{
+            let newWidth = (moviesCV.bounds.width-3)/2
             moviesCV.resizeItem(width: newWidth, height: newWidth * 1.5)
         }else{
-            
+            let newWidth = (moviesCV.bounds.width-8)/3
+            moviesCV.resizeItem(width: newWidth, height: newWidth * 1.5)
         }
     }
     

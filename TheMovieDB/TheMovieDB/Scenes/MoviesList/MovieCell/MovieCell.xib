@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="MovieCell" id="bEW-DC-dlL" customClass="MovieCell" customModule="TheMovieDB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="180" height="220"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="180" height="220"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="orD-f5-Mrg">
+                        <rect key="frame" x="0.0" y="0.0" width="180" height="220"/>
+                    </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uDC-71-FJg">
+                        <rect key="frame" x="80" y="100" width="20" height="20"/>
+                        <color key="color" red="0.062745098039215685" green="0.062745098039215685" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                    </activityIndicatorView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNA-rF-FTe">
+                        <rect key="frame" x="0.0" y="184" width="180" height="36"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RO4-NI-spe">
+                                <rect key="frame" x="4" y="2" width="164" height="32"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RO4-NI-spe" firstAttribute="leading" secondItem="yNA-rF-FTe" secondAttribute="leading" constant="4" id="0aU-AB-Vii"/>
+                            <constraint firstAttribute="bottom" secondItem="RO4-NI-spe" secondAttribute="bottom" constant="2" id="3c2-iS-0Ky"/>
+                            <constraint firstAttribute="trailing" secondItem="RO4-NI-spe" secondAttribute="trailing" constant="12" id="CaU-rH-P2M"/>
+                            <constraint firstAttribute="height" constant="36" id="Juo-2p-wdP"/>
+                            <constraint firstItem="RO4-NI-spe" firstAttribute="top" secondItem="yNA-rF-FTe" secondAttribute="top" constant="2" id="uwq-FV-SKB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="yNA-rF-FTe" secondAttribute="bottom" id="5Gf-3K-FFw"/>
+                <constraint firstItem="uDC-71-FJg" firstAttribute="centerX" secondItem="bEW-DC-dlL" secondAttribute="centerX" id="AYG-Dq-4mr"/>
+                <constraint firstAttribute="bottom" secondItem="orD-f5-Mrg" secondAttribute="bottom" id="Idv-Cl-qd1"/>
+                <constraint firstAttribute="trailing" secondItem="orD-f5-Mrg" secondAttribute="trailing" id="Jyr-1k-dRc"/>
+                <constraint firstItem="yNA-rF-FTe" firstAttribute="leading" secondItem="bEW-DC-dlL" secondAttribute="leading" id="KB4-ly-8ZO"/>
+                <constraint firstItem="orD-f5-Mrg" firstAttribute="top" secondItem="bEW-DC-dlL" secondAttribute="top" id="Lab-Za-nMW"/>
+                <constraint firstItem="orD-f5-Mrg" firstAttribute="leading" secondItem="bEW-DC-dlL" secondAttribute="leading" id="MVg-K9-BhC"/>
+                <constraint firstAttribute="trailing" secondItem="yNA-rF-FTe" secondAttribute="trailing" id="OFT-Tr-0mj"/>
+                <constraint firstItem="uDC-71-FJg" firstAttribute="centerY" secondItem="bEW-DC-dlL" secondAttribute="centerY" id="b3S-lX-sj6"/>
+            </constraints>
+            <size key="customSize" width="154" height="154"/>
+            <connections>
+                <outlet property="loadingIndicator" destination="uDC-71-FJg" id="Mzc-UG-uqB"/>
+                <outlet property="movieName" destination="RO4-NI-spe" id="hpT-SP-fw8"/>
+                <outlet property="moviePoster" destination="orD-f5-Mrg" id="Per-x7-VUH"/>
+            </connections>
+            <point key="canvasLocation" x="95.652173913043484" y="108.48214285714285"/>
+        </collectionViewCell>
+    </objects>
+</document>

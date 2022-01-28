@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Movies ListVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="MoviesListVC" id="BYZ-38-t0r" customClass="MoviesListVC" customModule="TheMovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auB-2g-dDr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOVIES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkH-Xh-Pzf">
+                                        <rect key="frame" x="160" y="34" width="94" height="32"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="29"/>
+                                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.062745098039215685" green="0.062745098039215685" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="Fiz-nZ-YcV"/>
+                                    <constraint firstItem="EkH-Xh-Pzf" firstAttribute="centerX" secondItem="auB-2g-dDr" secondAttribute="centerX" id="VRm-oX-p9Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="EkH-Xh-Pzf" secondAttribute="bottom" constant="12" id="imQ-Ph-bIf"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mTN-mc-2dK">
+                                <rect key="frame" x="0.0" y="78" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="kMw-bG-Uho">
+                                    <size key="itemSize" width="128" height="180"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="auB-2g-dDr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5Li-fT-bio"/>
+                            <constraint firstItem="auB-2g-dDr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ZZD-UJ-UCd"/>
+                            <constraint firstItem="auB-2g-dDr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cHO-AS-NFd"/>
+                            <constraint firstItem="mTN-mc-2dK" firstAttribute="top" secondItem="auB-2g-dDr" secondAttribute="bottom" id="cTP-Bu-1O1"/>
+                            <constraint firstItem="mTN-mc-2dK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ncn-Uc-PVC"/>
+                            <constraint firstAttribute="bottom" secondItem="mTN-mc-2dK" secondAttribute="bottom" id="ogO-Yl-Euw"/>
+                            <constraint firstItem="mTN-mc-2dK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tIr-Ow-QSz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="moviesCV" destination="mTN-mc-2dK" id="3e3-Ge-JhP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="95.652173913043484" y="93.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

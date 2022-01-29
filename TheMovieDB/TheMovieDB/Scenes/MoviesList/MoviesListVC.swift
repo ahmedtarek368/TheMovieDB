@@ -21,6 +21,10 @@ class MoviesListVC: UIViewController {
         resizeCells()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.darkTranslucent()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MoviesListViewModel(disposeBag: disposeBag)
@@ -28,6 +32,7 @@ class MoviesListVC: UIViewController {
         registerCell()
         bindMoviesListToMoviesCV()
         subscribeToDidEndDecelerating()
+        subscribeToMovieSelection()
         getLatestMovies()
     }
     
@@ -51,14 +56,20 @@ class MoviesListVC: UIViewController {
     }
     
     ///Bind the movies list from viewModel to movies CV
-    ///Observing movies is on main thread
+    ///Drive is called on main thread
     private func bindMoviesListToMoviesCV(){
-        viewModel.moviesObservable
-            .observe(on: MainScheduler.instance)
-            .asDriver(onErrorJustReturn: [])
-            .drive(moviesCV.rx.items(cellIdentifier: "MovieCell", cellType: MovieCell.self)){(row, movie, cell) in
+        viewModel.moviesDriver.drive(moviesCV.rx.items(cellIdentifier: "MovieCell", cellType: MovieCell.self)){(row, movie, cell) in
                 cell.setData(poster: movie.posterPath, name: movie.title)
         }.disposed(by: disposeBag)
+    }
+    
+    ///Item selection event zipped with model selected
+    private func subscribeToMovieSelection(){
+        Observable.zip(moviesCV.rx.itemSelected, moviesCV.rx.modelSelected(Movie.self)).subscribe(onNext: {[unowned self] (indexPath, movie) in
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailsVC") as! MovieDetailsVC
+            VC.movieId = movie.id
+            self.navigationController?.pushViewController(VC, animated: true)
+        }).disposed(by: disposeBag)
     }
     
     ///Take action when scrolling comes to an end to fetch new page content

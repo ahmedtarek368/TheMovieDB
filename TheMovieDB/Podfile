@@ -10,6 +10,7 @@ target 'TheMovieDB' do
     pod 'SDWebImage'
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'SwiftyStarRatingView'
     
       target 'TheMovieDBTests' do
     inherit! :search_paths

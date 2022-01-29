@@ -20,14 +20,12 @@ class MoviesListViewModel: AlertObservable{
     }
     
     //MARK:- OUTPUT
+    ///encapsulate data
     private var currentPage = BehaviorRelay<Int>(value: 1)
     private var maxPages = BehaviorRelay<Int>(value: 0)
     
-    ///encapsulate data
     private var moviesBehavior = BehaviorRelay<[Movie]>(value: [])
-    var moviesObservable: Observable<[Movie]>{
-        return moviesBehavior.asObservable()
-    }
+    lazy var moviesDriver: Driver<[Movie]> = moviesBehavior.asDriver(onErrorJustReturn: [])
     
     private var alertSubject = PublishSubject<String>()
     var alertObservable: Observable<String>{
@@ -41,7 +39,8 @@ class MoviesListViewModel: AlertObservable{
     
     func getLatestMovies(by page: Int = 1){
         LoadingManager.shared.showProgressView()
-        moviesServices.getLatestMovies(page: page).subscribe(onNext: {[weak self] (result) in
+        moviesServices.getLatestMovies(page: page)
+            .subscribe(onNext: {[weak self] (result) in
             guard let self = self else {return}
             LoadingManager.shared.hideProgressView()
             switch result{

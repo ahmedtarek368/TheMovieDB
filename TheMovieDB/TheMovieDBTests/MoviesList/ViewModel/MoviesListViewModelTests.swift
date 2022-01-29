@@ -8,6 +8,7 @@
 import XCTest
 @testable import TheMovieDB
 import RxSwift
+import RxCocoa
 
 class MoviesListViewModelTests: XCTestCase {
 
@@ -30,7 +31,7 @@ class MoviesListViewModelTests: XCTestCase {
 
     func testMoviesListViewModel_WhenServiceFetchMovies_ShouldReturnMovies() throws {
         //Act
-        let state = MoviesSpy(observable: sut.moviesObservable)
+        let state = MoviesSpy(driver: sut.moviesDriver)
         sut.getLatestMovies()
 
         //Assert
@@ -40,7 +41,7 @@ class MoviesListViewModelTests: XCTestCase {
     func testMoviesListViewModel_WhenServiceReturnError_ShouldNotReturnMovies() throws {
         //Act
         mockMoviesServices.shouldReturnError = true
-        let state = MoviesSpy(observable: sut.moviesObservable)
+        let state = MoviesSpy(driver: sut.moviesDriver)
         sut.getLatestMovies()
 
         //Assert
@@ -59,7 +60,6 @@ class MoviesListViewModelTests: XCTestCase {
     
     func testMoviesListViewModel_WhenServiceFetchMovies_ShouldNotReturnErrorMessage() throws {
         //Act
-        mockMoviesServices.shouldReturnError = true
         let state = ErrorSpy(observable: sut.alertObservable)
         sut.getLatestMovies()
 
@@ -70,8 +70,8 @@ class MoviesListViewModelTests: XCTestCase {
     class MoviesSpy{
         private (set) var movies: [Movie] = []
         let disposeBag = DisposeBag()
-        init(observable: Observable<[Movie]>){
-            observable.subscribe(onNext: {[weak self] movies in
+        init(driver: Driver<[Movie]>){
+            driver.asObservable().subscribe(onNext: {[weak self] movies in
                 guard let self = self else {return}
                 self.movies = movies
             }).disposed(by: disposeBag)

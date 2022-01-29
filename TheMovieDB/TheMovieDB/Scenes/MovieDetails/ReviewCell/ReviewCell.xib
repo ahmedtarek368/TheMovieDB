@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReviewCell" id="lka-Dq-P1f" customClass="ReviewCell" customModule="TheMovieDB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="159"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lka-Dq-P1f" id="Y0K-cC-0MI">
+                <rect key="frame" x="0.0" y="0.0" width="355" height="159"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrd-K3-9XR">
+                        <rect key="frame" x="12" y="8" width="331" height="143"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gDx-jR-QuV">
+                                <rect key="frame" x="28" y="28" width="20" height="20"/>
+                                <color key="color" red="0.14117647059999999" green="0.14901960780000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xeh-ZX-yaj">
+                                <rect key="frame" x="20" y="20" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="MYn-Ib-eem"/>
+                                    <constraint firstAttribute="width" constant="36" id="oI6-cl-Lsu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ahmed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFp-7d-AEU">
+                                <rect key="frame" x="70" y="20" width="47" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nSm-Tz-bvv" customClass="SwiftyStarRatingView" customModule="SwiftyStarRatingView">
+                                <rect key="frame" x="70" y="37" width="80" height="16"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="JDC-0c-hmB"/>
+                                    <constraint firstAttribute="height" constant="16" id="ksj-8r-51b"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="starEmp24Px"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="starfill24Px"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iep-3E-e6K">
+                                <rect key="frame" x="20" y="66" width="294.5" height="65"/>
+                                <string key="text">Long awaited and very conspiricized, **'Spider-man:No way Home'** Lives up and surpasses hype, The introduction of charcters once thought cordened off into the MCU, came both as a shock and as an eventual certainty. The Pleathora of indephth easter eggs creates awonderful viewing for the spider-man fan</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iep-3E-e6K" secondAttribute="bottom" constant="12" id="1vM-zj-ieH"/>
+                            <constraint firstItem="nSm-Tz-bvv" firstAttribute="leading" secondItem="NFp-7d-AEU" secondAttribute="leading" id="2g1-sW-Iq7"/>
+                            <constraint firstItem="Xeh-ZX-yaj" firstAttribute="top" secondItem="zrd-K3-9XR" secondAttribute="top" constant="20" id="8K2-1h-OOq"/>
+                            <constraint firstItem="nSm-Tz-bvv" firstAttribute="top" secondItem="NFp-7d-AEU" secondAttribute="bottom" id="9zg-BK-eoi"/>
+                            <constraint firstItem="Xeh-ZX-yaj" firstAttribute="leading" secondItem="zrd-K3-9XR" secondAttribute="leading" constant="20" id="D22-Zq-5IF"/>
+                            <constraint firstItem="iep-3E-e6K" firstAttribute="leading" secondItem="zrd-K3-9XR" secondAttribute="leading" constant="20" id="MYh-KO-Xbx"/>
+                            <constraint firstItem="NFp-7d-AEU" firstAttribute="leading" secondItem="Xeh-ZX-yaj" secondAttribute="trailing" constant="14" id="NHR-JY-Zhn"/>
+                            <constraint firstItem="gDx-jR-QuV" firstAttribute="centerX" secondItem="Xeh-ZX-yaj" secondAttribute="centerX" id="lsq-yn-Ck7"/>
+                            <constraint firstItem="iep-3E-e6K" firstAttribute="top" secondItem="Xeh-ZX-yaj" secondAttribute="bottom" constant="10" id="ohH-EF-U4Q"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iep-3E-e6K" secondAttribute="trailing" constant="16" id="uWX-aS-raG"/>
+                            <constraint firstItem="gDx-jR-QuV" firstAttribute="centerY" secondItem="Xeh-ZX-yaj" secondAttribute="centerY" id="vWj-p0-aTS"/>
+                            <constraint firstItem="NFp-7d-AEU" firstAttribute="top" secondItem="Xeh-ZX-yaj" secondAttribute="top" id="yZQ-uz-ECW"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="zrd-K3-9XR" firstAttribute="leading" secondItem="Y0K-cC-0MI" secondAttribute="leading" constant="12" id="7mO-dL-vYC"/>
+                    <constraint firstItem="zrd-K3-9XR" firstAttribute="top" secondItem="Y0K-cC-0MI" secondAttribute="top" constant="8" id="EKc-22-vzn"/>
+                    <constraint firstAttribute="bottom" secondItem="zrd-K3-9XR" secondAttribute="bottom" constant="8" id="MOY-uc-DNF"/>
+                    <constraint firstAttribute="trailing" secondItem="zrd-K3-9XR" secondAttribute="trailing" constant="12" id="tyW-9G-KvM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="authorAvatar" destination="Xeh-ZX-yaj" id="Dpk-gM-ftp"/>
+                <outlet property="authorName" destination="NFp-7d-AEU" id="ghr-Ak-77I"/>
+                <outlet property="loadingIndicator" destination="gDx-jR-QuV" id="ztb-I0-KqS"/>
+                <outlet property="rate" destination="nSm-Tz-bvv" id="06k-rj-ziT"/>
+                <outlet property="review" destination="iep-3E-e6K" id="bFR-KT-Td9"/>
+            </connections>
+            <point key="canvasLocation" x="373.91304347826087" y="75.669642857142847"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="nSm-Tz-bvv">
+            <size key="intrinsicContentSize" width="220" height="44"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="starEmp24Px" width="20" height="20"/>
+        <image name="starfill24Px" width="20" height="20"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

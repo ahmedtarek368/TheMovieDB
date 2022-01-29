@@ -22,8 +22,8 @@ struct MoviesResponse: Codable {
     struct Factory {
         static let instance = Factory()
         
-        func DefaultResponse() -> MoviesResponse{
-            return MoviesResponse(page: -1, results: [Movie.factory.DefaultMovie()], totalPages: -1, totalResults: -1)
+        func MockMoviesResponse() -> MoviesResponse{
+            return MoviesResponse(page: -1, results: [Movie.factory.MockMovie()], totalPages: -1, totalResults: -1)
         }
     }
 }
@@ -62,7 +62,7 @@ struct Movie: Codable {
     struct Factory {
         static let instance = Factory()
         
-        func DefaultMovie() -> Movie{
+        func MockMovie() -> Movie{
             return Movie(adult: false, backdropPath: nil, genreIDS: [], id: -1, originalLanguage: "", originalTitle: "", overview: "", popularity: 0, posterPath: nil, releaseDate: "", title: "", video: false, voteAverage: -1, voteCount: -1)
         }
     }

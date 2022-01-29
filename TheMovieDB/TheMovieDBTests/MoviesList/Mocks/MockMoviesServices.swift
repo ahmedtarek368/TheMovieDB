@@ -16,10 +16,10 @@ class MockMoviesServices: MoviesServicesProtocol{
     func getLatestMovies(page: Int) -> Observable<Result<MoviesResponse, NSError>> {
         return Observable.create { observer in
             if self.shouldReturnError{
-                let error = NSError(domain: "https://image.tmdb.org", code: -1, userInfo: [NSLocalizedDescriptionKey: MockErrorMessage.genericError.rawValue])
+                let error = NSError(domain: "https://image.tmdb.org", code: -1, userInfo: [NSLocalizedDescriptionKey: MockErrorMessage.moviesListError.rawValue])
                 observer.onNext(.failure(error))
             }else{
-                observer.onNext(.success(MoviesResponse.factory.DefaultResponse()))
+                observer.onNext(.success(MoviesResponse.factory.MockMoviesResponse()))
             }
             return Disposables.create()
         }

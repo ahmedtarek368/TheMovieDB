@@ -49,6 +49,15 @@ struct MovieDetails: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+    
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func MockMovieDetailsResponse() -> MovieDetails{
+            return MovieDetails(adult: false, backdropPath: nil, belongsToCollection: nil, budget: -1, genres: [], homepage: "", id: -1, imdbID: nil, originalLanguage: "", originalTitle: "", overview: "", popularity: -1, posterPath: nil, productionCompanies: [], productionCountries: [], releaseDate: "", revenue: -1, runtime: -1, spokenLanguages: [], status: "", tagline: "", title: "", video: false, voteAverage: -1, voteCount: -1)
+        }
+    }
 }
 
 // MARK: - BelongsToCollection
@@ -116,6 +125,15 @@ struct ReviewsResponse: Codable {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
+    
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func MockReviewsResponse() -> ReviewsResponse{
+            return ReviewsResponse(id: -1, page: -1, results: [Review.factory.MockReview()], totalPages: -1, totalResults: -1)
+        }
+    }
 }
 
 // MARK: - Review
@@ -134,6 +152,15 @@ struct Review: Codable {
         case updatedAt = "updated_at"
         case url
     }
+    
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func MockReview() -> Review{
+            return Review(author: "", authorDetails: AuthorDetails.factory.MockAuthorDetails(), content: "", createdAt: "", id: "", updatedAt: "", url: "")
+        }
+    }
 }
 
 // MARK: - AuthorDetails
@@ -146,5 +173,14 @@ struct AuthorDetails: Codable {
         case name, username
         case avatarPath = "avatar_path"
         case rating
+    }
+    
+    static let factory = Factory.instance
+    struct Factory {
+        static let instance = Factory()
+        
+        func MockAuthorDetails() -> AuthorDetails{
+            return AuthorDetails(name: "", username: "", avatarPath: nil, rating: nil)
+        }
     }
 }

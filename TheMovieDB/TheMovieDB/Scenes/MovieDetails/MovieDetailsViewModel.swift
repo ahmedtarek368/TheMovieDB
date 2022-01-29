@@ -55,7 +55,7 @@ class MovieDetailsViewModel: AlertObservable{
         LoadingManager.shared.showProgressView()
         
         mainGroup.enter()
-        getMovieDetails(id: id)
+        getMovieDetails(id: id, isSeprate: false)
         
         mainGroup.enter()
         getMovieReviews(id: id, isSeprate: false)
@@ -65,11 +65,18 @@ class MovieDetailsViewModel: AlertObservable{
         }
     }
     
-    private func getMovieDetails(id: Int){
+    func getMovieDetails(id: Int, isSeprate: Bool = true){
+        if isSeprate{
+            LoadingManager.shared.showProgressView()
+        }
         movieDetailsServices.getMovieDetails(id: id)
             .subscribe(onNext: {[weak self] (result) in
                 guard let self = self else {return}
-                self.mainGroup.leave()
+                if isSeprate{
+                    LoadingManager.shared.hideProgressView()
+                }else{
+                    self.mainGroup.leave()
+                }
                 switch result{
                 case .success(let response):
                     self.movieDetailsSubject.onNext(response)

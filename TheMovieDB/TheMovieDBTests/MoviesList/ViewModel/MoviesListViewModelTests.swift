@@ -29,26 +29,39 @@ class MoviesListViewModelTests: XCTestCase {
         sut = nil
     }
 
+    //MARK:- Service fetch movies successfully
+    ///when service fetch movies, movies mustn't be empty and error must be nil
     func testMoviesListViewModel_WhenServiceFetchMovies_ShouldReturnMovies() throws {
         //Act
         let state = MoviesSpy(driver: sut.moviesDriver)
         sut.getLatestMovies()
 
         //Assert
-        XCTAssertEqual(state.movies.count, 1, "Movies isn't fetched successfuly")
+        XCTAssertGreaterThan(state.movies.count, 0, "Movies isn't fetched successfully")
     }
     
-    func testMoviesListViewModel_WhenServiceReturnError_ShouldNotReturnMovies() throws {
+    func testMoviesListViewModel_WhenServiceFetchMovies_ShouldNotReturnErrorMessage() throws {
+        //Act
+        let state = ErrorSpy(observable: sut.alertObservable)
+        sut.getLatestMovies()
+        
+        //Assert
+        XCTAssertNil(state.error, "Error message displayed while movies must be fetched successfully")
+    }
+    
+    //MARK:- Service fail to fetch movies
+    ///when service fail to fetch movies, movies must be empty and error mustn't be nil
+    func testMoviesListViewModel_WhenServiceFailToFetchMovies_ShouldNotReturnMovies() throws {
         //Act
         mockMoviesServices.shouldReturnError = true
         let state = MoviesSpy(driver: sut.moviesDriver)
         sut.getLatestMovies()
 
         //Assert
-        XCTAssertEqual(state.movies.count, 0, "Movies fetched while error must be returned instead")
+        XCTAssertEqual(state.movies.count, 0, "Movies fetched while service must be failing to fetch it")
     }
 
-    func testMoviesListViewModel_WhenServiceReturnError_ShouldReturnErrorMessage() throws {
+    func testMoviesListViewModel_WhenServiceFailToFetchMovies_ShouldReturnErrorMessage() throws {
         //Act
         mockMoviesServices.shouldReturnError = true
         let state = ErrorSpy(observable: sut.alertObservable)
@@ -58,14 +71,6 @@ class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(state.error, "Error fetching movies", "Error message isn't displayed")
     }
     
-    func testMoviesListViewModel_WhenServiceFetchMovies_ShouldNotReturnErrorMessage() throws {
-        //Act
-        let state = ErrorSpy(observable: sut.alertObservable)
-        sut.getLatestMovies()
-
-        //Assert
-        XCTAssertEqual(state.error, "", "Error message displayed while movies should be fetched successfuly")
-    }
 
     class MoviesSpy{
         private (set) var movies: [Movie] = []
@@ -79,7 +84,7 @@ class MoviesListViewModelTests: XCTestCase {
     }
     
     class ErrorSpy{
-        private (set) var error: String = ""
+        private (set) var error: String? = nil
         let disposeBag = DisposeBag()
         init(observable: Observable<String>){
             observable.subscribe(onNext: {[weak self] error in

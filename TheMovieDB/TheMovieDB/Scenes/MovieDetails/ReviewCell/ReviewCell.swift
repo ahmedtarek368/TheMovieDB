@@ -29,7 +29,9 @@ class ReviewCell: UITableViewCell {
         }
         if let avatar = authorAvatar{
             if avatar.contains("https"){
-                self.setAvatar(img: avatar)
+                var img = avatar
+                img.removeFirst()
+                self.setAvatar(img: img)
             }else{
                 let img = Poster.Size.w185+avatar
                 print(img)

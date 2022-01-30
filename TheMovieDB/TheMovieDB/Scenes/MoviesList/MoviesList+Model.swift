@@ -7,7 +7,20 @@
 
 import Foundation
 
-// MARK: - Welcome
+protocol IsMovie {
+    var id: Int {get}
+    var originalTitle: String {get}
+    var overview: String {get}
+    var popularity: Double {get}
+    var posterPath: String? {get}
+    var releaseDate: String {get}
+    var title: String {get}
+    var voteAverage: Double {get}
+    var voteCount: Int {get}
+    var posterData: Data? {get}
+}
+
+// MARK: - MoviesResponse
 struct MoviesResponse: Codable {
     let page: Int
     let results: [Movie]
@@ -29,31 +42,23 @@ struct MoviesResponse: Codable {
 }
 
 // MARK: - Result
-struct Movie: Codable {
-    let adult: Bool
-    let backdropPath: String?
-    let genreIDS: [Int]
+struct Movie: Codable, IsMovie {
     let id: Int
-    let originalLanguage: String
     let originalTitle, overview: String
     let popularity: Double
     let posterPath: String?
     let releaseDate, title: String
-    let video: Bool
     let voteAverage: Double
     let voteCount: Int
-
+    let posterData: Data?
+    
     enum CodingKeys: String, CodingKey {
-        case adult
-        case backdropPath = "backdrop_path"
-        case genreIDS = "genre_ids"
-        case id
-        case originalLanguage = "original_language"
+        case id, posterData
         case originalTitle = "original_title"
         case overview, popularity
         case posterPath = "poster_path"
         case releaseDate = "release_date"
-        case title, video
+        case title
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
@@ -63,8 +68,22 @@ struct Movie: Codable {
         static let instance = Factory()
         
         func MockMovie() -> Movie{
-            return Movie(adult: false, backdropPath: nil, genreIDS: [], id: -1, originalLanguage: "", originalTitle: "", overview: "", popularity: 0, posterPath: nil, releaseDate: "", title: "", video: false, voteAverage: -1, voteCount: -1)
+            return Movie(id: -1, originalTitle: "", overview: "", popularity: 0, posterPath: nil, releaseDate: "", title: "", voteAverage: -1, voteCount: -1, posterData: nil)
         }
     }
 }
 
+extension Movie{
+    init(copyFrom obj: MovieEntity){
+        self.id = Int(obj.id)
+        self.originalTitle = obj.title ?? ""
+        self.overview = obj.overview ?? ""
+        self.popularity = obj.popularity
+        self.posterPath = nil
+        self.releaseDate = obj.releaseDate ?? ""
+        self.title = obj.title ?? ""
+        self.voteAverage = obj.voteAverage
+        self.voteCount = Int(obj.voteCount)
+        self.posterData = obj.poster
+    }
+}

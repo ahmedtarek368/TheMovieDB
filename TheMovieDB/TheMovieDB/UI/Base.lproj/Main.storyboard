@@ -17,30 +17,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mTN-mc-2dK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="kMw-bG-Uho">
-                                    <size key="itemSize" width="342" height="513"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vWZ-63-gEi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <searchBar hidden="YES" contentMode="redraw" barStyle="black" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="kJh-vw-Qm3">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="51" id="xoi-pJ-cgR"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="FWY-hR-Bui"/>
+                                        </connections>
+                                    </searchBar>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mTN-mc-2dK">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="kMw-bG-Uho">
+                                            <size key="itemSize" width="342" height="513"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="mTN-mc-2dK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="EtI-YU-KXn"/>
-                            <constraint firstItem="mTN-mc-2dK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ncn-Uc-PVC"/>
-                            <constraint firstAttribute="bottom" secondItem="mTN-mc-2dK" secondAttribute="bottom" id="ogO-Yl-Euw"/>
-                            <constraint firstItem="mTN-mc-2dK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tIr-Ow-QSz"/>
+                            <constraint firstItem="vWZ-63-gEi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5Th-9E-SyW"/>
+                            <constraint firstAttribute="bottom" secondItem="vWZ-63-gEi" secondAttribute="bottom" id="IvG-2Y-BTw"/>
+                            <constraint firstItem="vWZ-63-gEi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Vbg-jB-Iwu"/>
+                            <constraint firstItem="vWZ-63-gEi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sJk-Tj-Aqu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="MOVIES" id="HB0-4D-SBP"/>
+                    <navigationItem key="navigationItem" title="MOVIES" id="HB0-4D-SBP">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="search-1" id="5tm-5S-DSZ">
+                            <connections>
+                                <action selector="searchBtnTapped:" destination="BYZ-38-t0r" id="eWS-ea-lNj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="heart_border" id="OEY-JA-7Kg"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="favoriteFilterBtn" destination="OEY-JA-7Kg" id="3AU-lE-N7z"/>
                         <outlet property="moviesCV" destination="mTN-mc-2dK" id="3e3-Ge-JhP"/>
+                        <outlet property="searchBar" destination="kJh-vw-Qm3" id="N4J-Zb-V2N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -276,7 +300,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbF-dA-OYj">
                                                         <rect key="frame" x="0.0" y="81" width="74" height="30"/>
                                                         <state key="normal" title="Read More">
-                                                            <color key="titleColor" systemColor="systemBlueColor"/>
+                                                            <color key="titleColor" red="0.94901960780000005" green="0.72549019609999998" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="readMoreBtnTapped:" destination="PD8-Pl-H9q" eventType="touchUpInside" id="eaf-W9-7t0"/>
@@ -406,9 +430,15 @@
                             <constraint firstItem="oVK-B1-08W" firstAttribute="bottom" secondItem="CNl-hH-92w" secondAttribute="bottom" id="un1-h3-kAw"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="3Q0-Oj-u2p">
+                        <barButtonItem key="rightBarButtonItem" image="favoriteBorder" id="pjj-jn-JQg">
+                            <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="414" height="1400"/>
                     <connections>
                         <outlet property="backGroundImage" destination="CNl-hH-92w" id="hrQ-vR-7eG"/>
+                        <outlet property="favoriteBtn" destination="pjj-jn-JQg" id="KLd-bB-ch9"/>
                         <outlet property="movieName" destination="dCO-mh-UkW" id="zV2-lv-Fmr"/>
                         <outlet property="moviePoster" destination="kjh-RF-27F" id="MxW-td-E6V"/>
                         <outlet property="overview" destination="TXX-hk-afO" id="uzz-kG-XPd"/>
@@ -459,16 +489,16 @@
     </designables>
     <resources>
         <image name="calendar" width="64" height="64"/>
+        <image name="favoriteBorder" width="24" height="24"/>
+        <image name="heart_border" width="24" height="24"/>
         <image name="people" width="21.5" height="21.5"/>
+        <image name="search-1" width="24" height="24"/>
         <image name="splash" width="158" height="280.5"/>
         <image name="star" width="64" height="64"/>
         <image name="starEmp24Px" width="20" height="20"/>
         <image name="starfill24Px" width="20" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -11,7 +11,9 @@ import RxSwift
 class MoviesListVC: UIViewController {
 
     //MARK:- Outlets
-    @IBOutlet weak var moviesCV: UICollectionView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var moviesCV: UICollectionView!
+    @IBOutlet private weak var favoriteFilterBtn: UIBarButtonItem!
     
     //MARK:- Variables
     private var viewModel: MoviesListViewModel!
@@ -30,9 +32,11 @@ class MoviesListVC: UIViewController {
         viewModel = MoviesListViewModel(disposeBag: disposeBag)
         subscribeToAlert(viewModel: viewModel, disposeBag: disposeBag)
         registerCell()
+        view.hideKeyBoardWhenTappedAround()
         bindMoviesListToMoviesCV()
         subscribeToDidEndDecelerating()
         subscribeToMovieSelection()
+        subscribeToFavoriteFilterBtn()
         getLatestMovies()
     }
     
@@ -58,9 +62,22 @@ class MoviesListVC: UIViewController {
     ///Bind the movies list from viewModel to movies CV
     ///Drive is called on main thread
     private func bindMoviesListToMoviesCV(){
-        viewModel.moviesDriver.drive(moviesCV.rx.items(cellIdentifier: "MovieCell", cellType: MovieCell.self)){(row, movie, cell) in
-                cell.setData(poster: movie.posterPath, name: movie.title)
+        viewModel.filteredMovies.asDriver(onErrorJustReturn: []).drive(moviesCV.rx.items(cellIdentifier: "MovieCell", cellType: MovieCell.self)){(row, movie, cell) in
+            cell.setData(poster: movie.posterPath, name: movie.title)
+            cell.checkFavorite(isFavorite: CDS.instance.isMovieExist(id: movie.id))
+            subscribeToFavoriteBtnTapAction(cell: cell, movie: movie)
         }.disposed(by: disposeBag)
+        
+        ///favorite btn tap action
+        func subscribeToFavoriteBtnTapAction(cell: MovieCell, movie: Movie){
+            cell.favoriteBtn.rx.tap.subscribe(onNext: { _ in
+                if cell.isFavorite{
+                    CDS.instance.delete(id: movie.id)
+                }else{
+                    CDS.instance.save(movie: movie, posterData: cell.getPosterData())
+                }
+            }).disposed(by: cell.disposeBag)
+        }
     }
     
     ///Item selection event zipped with model selected
@@ -75,12 +92,43 @@ class MoviesListVC: UIViewController {
     ///Take action when scrolling comes to an end to fetch new page content
     private func subscribeToDidEndDecelerating(){
         moviesCV.rx.didEndDecelerating.subscribe(onNext: {[unowned self] _ in
-            if self.moviesCV.isNearBottomEdge(){
+            if self.moviesCV.isNearBottomEdge() && self.viewModel.favFilter.value == false{
                 if let page = self.viewModel.getNextLatestMoviesPage(){
                     self.viewModel.getLatestMovies(by: page)
                 }
             }
         }).disposed(by: disposeBag)
     }
+    
+    private func subscribeToFavoriteFilterBtn(){
+        favoriteFilterBtn.rx.tap.subscribe(onNext: {[unowned self] _ in
+            if self.viewModel.favFilter.value{
+                self.viewModel.favFilter.accept(false)
+                self.favoriteFilterBtn.image = UIImage(named: "heart_border")
+            }else{
+                self.viewModel.favFilter.accept(true)
+                self.favoriteFilterBtn.image = UIImage(named: "heart_fill")
+            }
+        }).disposed(by: disposeBag)
+    }
 
+    @IBAction func searchBtnTapped(_ sender: Any) {
+        if self.searchBar.isHidden == true{
+            UIView.animate(withDuration: 0.3) {
+                self.searchBar.isHidden = false
+            }
+        }else{
+            UIView.animate(withDuration: 0.3) {
+                self.searchBar.isHidden = true
+            }
+        }
+    }
+    
+}
+
+
+extension MoviesListVC: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchStr.accept(searchText)
+    }
 }

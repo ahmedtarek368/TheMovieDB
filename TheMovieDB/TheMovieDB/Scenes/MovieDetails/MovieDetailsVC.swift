@@ -23,6 +23,7 @@ class MovieDetailsVC: UIViewController {
     @IBOutlet private weak var overviewHeight: NSLayoutConstraint!
     @IBOutlet private weak var overview: UILabel!
     @IBOutlet private weak var readMoreBtn: UIButton!
+    @IBOutlet private weak var favoriteBtn: UIBarButtonItem!
     @IBOutlet private weak var reviewsTV: UITableView!
     @IBOutlet private weak var scrollView: UIScrollView!
     
@@ -32,7 +33,7 @@ class MovieDetailsVC: UIViewController {
     private var viewModel: MovieDetailsViewModel!
     
     override func viewWillLayoutSubviews() {
-        posterHeight.constant = moviePoster.bounds.width * 1.2
+        posterHeight.constant = moviePoster.bounds.width * 1.3
     }
     
     override func viewDidLoad() {
@@ -41,9 +42,12 @@ class MovieDetailsVC: UIViewController {
         subscribeToAlert(viewModel: viewModel, disposeBag: disposeBag)
         setupView()
         registerCell()
+        refreshFavStatus()
+        addFavoriteObserver()
         subscribeToMoviesDetails()
         bindReviewsToReviewsTV()
         subscribeToDidEndDeceleratingReviews()
+        subscribeToFavoriteBtnTap()
         getMovieDetailsData()
     }
     
@@ -107,6 +111,30 @@ class MovieDetailsVC: UIViewController {
                 }
             }
         }).disposed(by: disposeBag)
+    }
+    
+    ///listen to favorite btn taps
+    private func subscribeToFavoriteBtnTap(){
+        favoriteBtn.rx.tap.withLatestFrom(viewModel.movieDetailsObservable).subscribe(onNext: {[unowned self] movie in
+            if CDS.instance.isMovieExist(id: movieId!){
+                CDS.instance.delete(id: movieId!)
+            }else{
+                CDS.instance.save(movie: movie, posterData: self.moviePoster.image?.jpegData(compressionQuality: 1))
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    ///Always check favorites when its updated to update favorite btn icon
+    private func addFavoriteObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshFavStatus), name: NSNotification.Name("FavoritesUpdated"), object: nil)
+    }
+    
+    @objc private func refreshFavStatus(){
+        if CDS.instance.isMovieExist(id: movieId!){
+            favoriteBtn.image = UIImage(named: "favorite")
+        }else{
+            favoriteBtn.image = UIImage(named: "favoriteBorder")
+        }
     }
 
     @IBAction func readMoreBtnTapped(_ sender: Any) {

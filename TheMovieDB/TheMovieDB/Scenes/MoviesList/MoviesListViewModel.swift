@@ -17,15 +17,25 @@ class MoviesListViewModel: AlertObservable{
     init(moviesServices: MoviesServicesProtocol = MoviesServices(), disposeBag: DisposeBag){
         self.moviesServices = moviesServices
         self.disposeBag = disposeBag
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshMoviesList), name: NSNotification.Name("FavoritesUpdated"), object: nil)
     }
     
     //MARK:- OUTPUT
     ///encapsulate data
     private var currentPage = BehaviorRelay<Int>(value: 1)
     private var maxPages = BehaviorRelay<Int>(value: 0)
+    private var movies = BehaviorRelay<[Movie]>(value: [])
     
-    private var moviesBehavior = BehaviorRelay<[Movie]>(value: [])
-    lazy var moviesDriver: Driver<[Movie]> = moviesBehavior.asDriver(onErrorJustReturn: [])
+    var favFilter = BehaviorRelay<Bool>(value: false)
+    var searchStr = BehaviorRelay<String>(value: "")
+    ///Used to search the movies with provided string
+    var filteredMovies: Observable<[Movie]>{
+        return Observable.combineLatest(movies.asObservable(), searchStr, favFilter.asObservable()){(movies, searchString, favFilter) in
+            let movies = searchString == "" ?
+                movies : movies.filter {$0.title.contains(searchString)}
+            return favFilter ? movies.filter {CDS.instance.isMovieExist(id: $0.id)} : movies
+        }
+    }
     
     private var alertSubject = PublishSubject<String>()
     var alertObservable: Observable<String>{
@@ -46,10 +56,10 @@ class MoviesListViewModel: AlertObservable{
             switch result{
             case .success(let response):
                 if page == 1{
-                    self.moviesBehavior.accept(response.results)
+                    self.movies.accept(response.results)
                 }else{
-                    let prevMovies = self.moviesBehavior.value
-                    self.moviesBehavior.accept(prevMovies+response.results)
+                    let prevMovies = self.movies.value
+                    self.movies.accept(prevMovies+response.results)
                 }
                 self.maxPages.accept(response.totalPages)
                 self.currentPage.accept(response.page)
@@ -57,6 +67,10 @@ class MoviesListViewModel: AlertObservable{
                 self.alertSubject.onNext(error.localizedDescription)
             }
         }).disposed(by: disposeBag)
+    }
+ 
+    @objc private func refreshMoviesList(){
+        movies.accept(movies.value)
     }
     
 }

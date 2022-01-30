@@ -18,6 +18,7 @@ class MoviesListVC: UIViewController {
     //MARK:- Variables
     private var viewModel: MoviesListViewModel!
     private let disposeBag = DisposeBag()
+    var refreshControl: UIRefreshControl?
     
     override func viewWillLayoutSubviews() {
         resizeCells()
@@ -32,6 +33,7 @@ class MoviesListVC: UIViewController {
         viewModel = MoviesListViewModel(disposeBag: disposeBag)
         subscribeToAlert(viewModel: viewModel, disposeBag: disposeBag)
         registerCell()
+        addRefreshControl()
         view.hideKeyBoardWhenTappedAround()
         bindMoviesListToMoviesCV()
         subscribeToDidEndDecelerating()
@@ -52,6 +54,20 @@ class MoviesListVC: UIViewController {
             let newWidth = (moviesCV.bounds.width-8)/3
             moviesCV.resizeItem(width: newWidth, height: newWidth * 1.5)
         }
+    }
+    
+    func addRefreshControl(){
+        refreshControl = UIRefreshControl()
+        refreshControl?.tintColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
+        refreshControl?.addTarget(self, action: #selector(refreshMoviesList(sender:)), for: .valueChanged)
+        moviesCV.addSubview(refreshControl!)
+        viewModel.filteredMovies.observe(on: MainScheduler.instance).subscribe(onNext: {[weak self] _ in
+            guard let self = self else {return}
+            self.refreshControl?.endRefreshing()
+        }).disposed(by: disposeBag)
+    }
+    @objc func refreshMoviesList(sender: UIRefreshControl){
+        viewModel.getLatestMovies()
     }
     
     ///Gets first page when i first enter or when i refresh movies

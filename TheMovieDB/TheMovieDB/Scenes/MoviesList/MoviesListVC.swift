@@ -56,6 +56,7 @@ class MoviesListVC: UIViewController {
         }
     }
     
+    ///Refresh movies list when swipe down
     func addRefreshControl(){
         refreshControl = UIRefreshControl()
         refreshControl?.tintColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
